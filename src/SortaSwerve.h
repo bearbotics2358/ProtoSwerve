@@ -1,10 +1,5 @@
-/*
- * SortaSwerve.h
- *
- *  Created on: Aug 3, 2018
- *      Author: Time
- */
 #include <WPILib.h>
+#include <SwerveModule.h>
 
 #ifndef SRC_SORTASWERVE_H_
 #define SRC_SORTASWERVE_H_
@@ -28,7 +23,7 @@ public:
 
 	~SortaSwerve(void);
 private:
-
+	SwerveModule FL_SwerveModule;
 };
 
 

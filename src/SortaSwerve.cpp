@@ -2,7 +2,8 @@
 #include <Prefs.h>
 #include <SortaSwerve.h>
 
-SortaSwerve::SortaSwerve(void)
+SortaSwerve::SortaSwerve(void):
+FL_SwerveModule(FL_DRIVE_ONE_ID, FL_DRIVE_TWO_ID, FL_TURN_ID)
 {
 
 }
