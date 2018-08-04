@@ -1,14 +1,23 @@
-/*
- * SwereModule.h
- *
- *  Created on: Aug 3, 2018
- *      Author: Time
- */
+#include <WPILib.h>
+#include "ctre/Phoenix.h"
 
 #ifndef SRC_SWEREMODULE_H_
 #define SRC_SWEREMODULE_H_
 
+class SwerveModule {
+public:
+	SwerveModule(int driveMotorOne, int driveMotorTwo, int turnMotor); // Takes CAN IDs for the different talons so this class can be reused for more than one module.
 
+	void UpdateCartesian(float xInput, float yInput); // Will calculate the polar coords and automatically determine the angle and speed.
+	void UpdatePolar(float radius, float angle); // Theo float for angle, method will be used for higher level classes that just feed it polar coords.
+	void UpdateRaw(float driveSpeed, float rotationSpeed); // Method for mechanically testing swerve modules, will literally set the drive talons to a specific speed.
+
+	~SwerveModule(void);
+private:
+	WPI_TalonSRX a_DriveMotorOne;
+	WPI_TalonSRX a_DriveMotorTwo;
+	WPI_TalonSRX a_TurnMotor;
+};
 
 
 
