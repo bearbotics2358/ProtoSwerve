@@ -21,8 +21,15 @@ public:
 	void AutonomousInit(void);
 	void AutonomousPeriodic(void);
 
+	void TestInit(void);
+	void TestPeriodic(void);
+
 	~SortaSwerve(void);
 private:
+	std::string robotState;
+
+	Joystick a_Joystick1;
+
 	SwerveModule FL_SwerveModule;
 };
 

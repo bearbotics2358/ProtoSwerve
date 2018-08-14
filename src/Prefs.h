@@ -6,6 +6,8 @@
 #define FL_DRIVE_TWO_ID 1
 #define FL_TURN_ID 2
 
+#define JOYSTICK_PORT_ONE 1
 
+#define COUNTS_PER_ROTATION 4096
 
 #endif

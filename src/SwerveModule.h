@@ -12,6 +12,10 @@ public:
 	void UpdatePolar(float radius, float angle); // Theo float for angle, method will be used for higher level classes that just feed it polar coords.
 	void UpdateRaw(float driveSpeed, float rotationSpeed); // Method for mechanically testing swerve modules, will literally set the drive talons to a specific speed.
 
+	void ZeroEncoders(void);
+	float GetAngleRaw(void);
+	float GetAngle(void);
+	float GetDistanceRaw(void);
 	~SwerveModule(void);
 private:
 	WPI_TalonSRX a_DriveMotorOne;
