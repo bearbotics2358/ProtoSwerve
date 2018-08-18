@@ -52,9 +52,9 @@ float SwerveModule::GetAngle(void)
 
 	ret = ((int) ret % 360); // Converts counts to int casts it between 0 and 360 degrees
 
-	if(ret >= 180)
+	if(ret >= 180) // Restricting 0 to 360 to between +/- 180
 	{
-		ret = 360 - ret;
+		ret -= 360;
 	}
 
 	return ret;
