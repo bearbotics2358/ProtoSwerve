@@ -15,7 +15,11 @@ public:
 	void ZeroEncoders(void);
 	float GetAngleRaw(void);
 	float GetAngle(void);
+
 	float GetDistanceRaw(void);
+	float GetDistanceIn(void);
+	float GetDistanceCm(void);
+
 	~SwerveModule(void);
 private:
 	WPI_TalonSRX a_DriveMotorOne;

@@ -67,6 +67,20 @@ float SwerveModule::GetDistanceRaw(void)
 	return ret;
 }
 
+float SwerveModule::GetDistanceIn(void)
+{
+	float ret;
+
+	return ret;
+}
+
+float SwerveModule::GetDistanceCm(void)
+{
+	float ret;
+
+	return ret;
+}
+
 SwerveModule::~SwerveModule(void)
 {
 
