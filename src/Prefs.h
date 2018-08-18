@@ -9,6 +9,10 @@
 #define JOYSTICK_PORT_ONE 1
 
 #define COUNTS_PER_ROTATION 4096
+#define GEAR_RATIO_SCALAR 1 //Will change when known
+
+#define WHEEL_CIRCUM_IN 9.4245
+#define WHEEL_CIRCUM_CM 23.9390
 
 
 #endif

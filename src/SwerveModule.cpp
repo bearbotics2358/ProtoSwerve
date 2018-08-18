@@ -69,16 +69,24 @@ float SwerveModule::GetDistanceRaw(void)
 
 float SwerveModule::GetDistanceIn(void)
 {
-	float ret;
+	float count;
+	count = GetDistanceRaw();
+
+
+	float ret = ((count / (COUNTS_PER_ROTATION * GEAR_RATIO_SCALAR)) * WHEEL_CIRCUM_IN);
 
 	return ret;
 }
 
 float SwerveModule::GetDistanceCm(void)
 {
-	float ret;
+	float count;
+		count = GetDistanceRaw();
 
-	return ret;
+
+		float ret = ((count / (COUNTS_PER_ROTATION * GEAR_RATIO_SCALAR)) * WHEEL_CIRCUM_CM);
+
+		return ret;
 }
 
 SwerveModule::~SwerveModule(void)
