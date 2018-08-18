@@ -43,14 +43,21 @@ void SortaSwerve::TeleopPeriodic(void)
 	float angleCounts;
 	float distanceCounts;
 	float calibratedAngle;
+	float distanceIn;
+	float distanceCm;
 
 	angleCounts = FL_SwerveModule.GetAngleRaw();
 	distanceCounts = FL_SwerveModule.GetDistanceRaw();
 	calibratedAngle = FL_SwerveModule.GetAngle();
+	distanceIn = FL_SwerveModule.GetDistanceIn();
+	distanceCm = FL_SwerveModule.GetDistanceCm();
 
 	SmartDashboard::PutNumber("Rotation Encoder: ", angleCounts);
 	SmartDashboard::PutNumber("Distance Encoder: ", distanceCounts);
 	SmartDashboard::PutNumber("Calculated Angle: ", calibratedAngle);
+	SmartDashboard::PutNumber("Distance (In): ", distanceIn);
+	SmartDashboard::PutNumber("Distance (Cm): ", distanceCm);
+
 }
 
 void SortaSwerve::AutonomousInit(void)
