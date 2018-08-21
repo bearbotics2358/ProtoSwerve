@@ -81,12 +81,44 @@ float SwerveModule::GetDistanceIn(void)
 float SwerveModule::GetDistanceCm(void)
 {
 	float count;
-		count = GetDistanceRaw();
+	count = GetDistanceRaw();
 
 
-		float ret = ((count / (COUNTS_PER_ROTATION * GEAR_RATIO_SCALAR)) * WHEEL_CIRCUM_CM);
+	float ret = ((count / (COUNTS_PER_ROTATION * GEAR_RATIO_SCALAR)) * WHEEL_CIRCUM_CM);
 
-		return ret;
+	return ret;
+}
+
+float SwerveModule::GetCurrentOP(int id)
+{
+	float ret;
+	if(id == FL_DRIVE_ONE_ID) {
+	ret = a_DriveMotorOne.GetOutputCurrent();
+	}
+	else if(id == FL_DRIVE_TWO_ID) {
+	ret = a_DriveMotorTwo.GetOutputCurrent();
+	}
+	else if(id == FL_TURN_ID) {
+		ret = a_TurnMotor.GetOutputCurrent();
+	}
+
+	return ret;
+}
+
+float SwerveModule::GetVoltageOP(int id)
+{
+	float ret;
+	if(id == FL_DRIVE_ONE_ID) {
+	ret = a_DriveMotorOne.GetMotorOutputVoltage();
+	}
+	else if(id == FL_DRIVE_TWO_ID) {
+	ret = a_DriveMotorTwo.GetMotorOutputVoltage();
+	}
+	else if(id == FL_TURN_ID) {
+		ret = a_TurnMotor.GetMotorOutputVoltage();
+	}
+
+	return ret;
 }
 
 SwerveModule::~SwerveModule(void)

@@ -20,6 +20,9 @@ public:
 	float GetDistanceIn(void);
 	float GetDistanceCm(void);
 
+	float GetCurrentOP(int id);
+	float GetVoltageOP(int id);
+
 	~SwerveModule(void);
 private:
 	WPI_TalonSRX a_DriveMotorOne;
