@@ -27,6 +27,9 @@ public:
 	~SortaSwerve(void);
 private:
 	std::string robotState;
+	bool cruiseControl;
+	float driveSpeed;
+	float rotationSpeed;
 
 	Joystick a_Joystick1;
 

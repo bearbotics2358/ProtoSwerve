@@ -38,7 +38,26 @@ void SortaSwerve::TeleopPeriodic(void)
 {
 	robotState = "Teleoperated";
 
-	FL_SwerveModule.UpdateRaw(a_Joystick1.GetRawAxis(1), a_Joystick1.GetRawAxis(0));
+	if(a_Joystick1.GetRawButton(2)) // Enable Cruise Control
+	{
+		cruiseControl = true;
+		driveSpeed = a_Joystick1.GetRawAxis(1);
+		rotationSpeed = a_Joystick1.GetRawAxis(0);
+	}
+
+	if(a_Joystick1.GetRawButton(3)) // Disable Cruise Control
+	{
+		cruiseControl = false;
+	}
+
+	if(cruiseControl)
+	{
+		FL_SwerveModule.UpdateRaw(driveSpeed, rotationSpeed);
+	}
+	else
+	{
+		FL_SwerveModule.UpdateRaw(a_Joystick1.GetRawAxis(1), a_Joystick1.GetRawAxis(0));
+	}
 
 	float angleCounts;
 	float distanceCounts;
@@ -46,10 +65,10 @@ void SortaSwerve::TeleopPeriodic(void)
 	float distanceIn;
 	float distanceCm;
 	float currentOutput1;
-	float currentOutput2;
+	// float currentOutput2;
 	float currentOutput3;
 	float voltageOutput1;
-	float voltageOutput2;
+	// float voltageOutput2;
 	float voltageOutput3;
 
 
@@ -60,10 +79,10 @@ void SortaSwerve::TeleopPeriodic(void)
 	distanceIn = FL_SwerveModule.GetDistanceIn();
 	distanceCm = FL_SwerveModule.GetDistanceCm();
 	currentOutput1 = FL_SwerveModule.GetCurrentOP(FL_DRIVE_ONE_ID);
-	currentOutput2 = FL_SwerveModule.GetCurrentOP(FL_DRIVE_TWO_ID);
+	// currentOutput2 = FL_SwerveModule.GetCurrentOP(FL_DRIVE_TWO_ID);
 	currentOutput3 = FL_SwerveModule.GetCurrentOP(FL_TURN_ID);
 	voltageOutput1 = FL_SwerveModule.GetVoltageOP(FL_DRIVE_ONE_ID);
-	voltageOutput2 = FL_SwerveModule.GetVoltageOP(FL_DRIVE_TWO_ID);
+	// voltageOutput2 = FL_SwerveModule.GetVoltageOP(FL_DRIVE_TWO_ID);
 	voltageOutput3 = FL_SwerveModule.GetVoltageOP(FL_TURN_ID);
 
 
@@ -78,7 +97,7 @@ void SortaSwerve::TeleopPeriodic(void)
 	SmartDashboard::PutNumber("Drive Voltage 1: ", voltageOutput1);
 	// SmartDashboard::PutNumber("Drive Voltage 2: ", voltageOutput2);
 	SmartDashboard::PutNumber("Turn Voltage: ", voltageOutput3);
-
+	SmartDashboard::PutBoolean("Cruise Control", cruiseControl);
 }
 
 void SortaSwerve::AutonomousInit(void)

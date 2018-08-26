@@ -23,7 +23,7 @@ void SwerveModule::UpdatePolar(float radius, float angle)
 
 void SwerveModule::UpdateRaw(float driveSpeed, float rotationSpeed)
 {
-	float scalar = 1.0; // Full Speed is 1.0
+	float scalar = 0.3; // Full Speed is 1.0
 
 	a_DriveMotorOne.Set(scalar * driveSpeed); // Because this method is just for
 	a_DriveMotorTwo.Set(scalar * driveSpeed); // mechanically testing the modules,
