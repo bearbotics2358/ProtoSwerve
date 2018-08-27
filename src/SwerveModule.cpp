@@ -30,9 +30,10 @@ void SwerveModule::UpdateRaw(float driveSpeed, float rotationSpeed)
 	a_TurnMotor.Set(scalar * rotationSpeed); // I've applied a scalar for safety.
 }
 
-void SwerveModule::UpdateAngle(float angle)
+void SwerveModule::UpdateAngle(float angle) // -180 < angle < 180
 {
 	// Will turn the swerve module to a specific angle.
+	// Note: Definition will be added later, method just added as pseudo code.
 }
 
 void SwerveModule::ZeroEncoders(void)
