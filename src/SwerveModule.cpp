@@ -30,6 +30,11 @@ void SwerveModule::UpdateRaw(float driveSpeed, float rotationSpeed)
 	a_TurnMotor.Set(scalar * rotationSpeed); // I've applied a scalar for safety.
 }
 
+void SwerveModule::UpdateAngle(float angle)
+{
+	// Will turn the swerve module to a specific angle.
+}
+
 void SwerveModule::ZeroEncoders(void)
 {
 	a_DriveMotorOne.SetSelectedSensorPosition(0, 0, 0);

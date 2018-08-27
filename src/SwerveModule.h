@@ -11,6 +11,7 @@ public:
 	void UpdateCartesian(float xInput, float yInput); // Will calculate the polar coords and automatically determine the angle and speed.
 	void UpdatePolar(float radius, float angle); // Theo float for angle, method will be used for higher level classes that just feed it polar coords.
 	void UpdateRaw(float driveSpeed, float rotationSpeed); // Method for mechanically testing swerve modules, will literally set the drive talons to a specific speed.
+	void UpdateAngle(float angle); // Angle in degrees
 
 	void ZeroEncoders(void);
 	float GetAngleRaw(void);
