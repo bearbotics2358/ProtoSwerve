@@ -50,21 +50,21 @@ void SwerveModule::UpdateJason(float xInput, float yInput, float zInput) // jank
 
 	while(currentAngle > desiredAngle && currentAngle - desiredAngle < 180)
 	{
-		a_TurnMotor.Set(-50);
+		a_TurnMotor.Set(-1.0);
 	}
 
 	while(currentAngle > desiredAngle && currentAngle - desiredAngle > 180)
 	{
-		a_TurnMotor.Set(50);
+		a_TurnMotor.Set(1.0);
 	}
 
 	while(currentAngle < desiredAngle && currentAngle - desiredAngle > 180 )
 	{
-		a_TurnMotor.Set(50);
+		a_TurnMotor.Set(1.0);
 	}
 	while(currentAngle < desiredAngle && currentAngle - desiredAngle < 180 )
 	{
-		a_TurnMotor.Set(-50);
+		a_TurnMotor.Set(-1.0);
 	}
 
 
