@@ -24,6 +24,8 @@ public:
 	float GetCurrentOP(int id);
 	float GetVoltageOP(int id);
 
+	void UpdateJason(float xInput, float yInput, float zInput);
+
 	~SwerveModule(void);
 private:
 	WPI_TalonSRX a_DriveMotorOne;

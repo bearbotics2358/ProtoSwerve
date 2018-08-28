@@ -36,6 +36,46 @@ void SwerveModule::UpdateAngle(float angle) // -180 < angle < 180
 	// Note: Definition will be added later, method just added as pseudo code.
 }
 
+void SwerveModule::UpdateJason(float xInput, float yInput, float zInput) // janky, untested, and more of a outline, but theo works
+{
+
+	// a_TurnMotor.Set(zInput);
+
+	float r = sqrt(pow(xInput, 2) + pow(yInput, 2));
+	float desiredAngle = atan(yInput/xInput);
+	float currentAngle = GetAngle() + 180;
+
+	desiredAngle = ((int) desiredAngle % 360);
+
+
+	while(currentAngle > desiredAngle && currentAngle - desiredAngle < 180)
+	{
+		a_TurnMotor.Set(-50);
+	}
+
+	while(currentAngle > desiredAngle && currentAngle - desiredAngle > 180)
+	{
+		a_TurnMotor.Set(50);
+	}
+
+	while(currentAngle < desiredAngle && currentAngle - desiredAngle > 180 )
+	{
+		a_TurnMotor.Set(50);
+	}
+	while(currentAngle < desiredAngle && currentAngle - desiredAngle < 180 )
+	{
+		a_TurnMotor.Set(-50);
+	}
+
+
+	a_DriveMotorOne.Set(r);
+	a_DriveMotorTwo.Set(r);
+
+
+
+
+}
+
 void SwerveModule::ZeroEncoders(void)
 {
 	a_DriveMotorOne.SetSelectedSensorPosition(0, 0, 0);
