@@ -42,29 +42,30 @@ void SwerveModule::UpdateJason(float xInput, float yInput, float zInput) // jank
 	// a_TurnMotor.Set(zInput);
 
 	float r = sqrt(pow(xInput, 2) + pow(yInput, 2));
+	if(r < 1.0) {r = 1.0};
 	float desiredAngle = atan(yInput/xInput);
 	float currentAngle = GetAngle() + 180;
 
 	desiredAngle = ((int) desiredAngle % 360);
 
 
-	while(currentAngle > desiredAngle && currentAngle - desiredAngle < 180)
+	if(currentAngle > desiredAngle && currentAngle - desiredAngle < 180)
 	{
-		a_TurnMotor.Set(-1.0);
+		a_TurnMotor.Set(-0.5);
 	}
 
-	while(currentAngle > desiredAngle && currentAngle - desiredAngle > 180)
+	if(currentAngle > desiredAngle && currentAngle - desiredAngle > 180)
 	{
-		a_TurnMotor.Set(1.0);
+		a_TurnMotor.Set(0.5);
 	}
 
-	while(currentAngle < desiredAngle && currentAngle - desiredAngle > 180 )
+	if(currentAngle < desiredAngle && currentAngle - desiredAngle > 180 )
 	{
-		a_TurnMotor.Set(1.0);
+		a_TurnMotor.Set(0.5);
 	}
-	while(currentAngle < desiredAngle && currentAngle - desiredAngle < 180 )
+	if(currentAngle < desiredAngle && currentAngle - desiredAngle < 180 )
 	{
-		a_TurnMotor.Set(-1.0);
+		a_TurnMotor.Set(-0.5);
 	}
 
 
