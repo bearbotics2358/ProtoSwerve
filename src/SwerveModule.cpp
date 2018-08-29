@@ -39,42 +39,34 @@ void SwerveModule::UpdateAngle(float angle) // -180 < angle < 180
 void SwerveModule::UpdateJason(float xInput, float yInput, float zInput) // janky, untested, and more of a outline, but theo works
 {
 
-	// a_TurnMotor.Set(zInput);
+	// a_TurnMotor.Set(zInput); Would be used for turning robot or module in this case, but pointless for one wheel
 
-	float r = sqrt(pow(xInput, 2) + pow(yInput, 2));
-	if(r < 1.0) {r = 1.0};
+	float r = sqrt(pow(xInput, 2) + pow(yInput, 2)); // Finds the magnitude of the Joystick or the "r" in a polar coordinate system
+	if(r < 1.0) {r = 1.0}; // For Tim, makes sure magnitude doesn't go over 1
+	
 	float desiredAngle = atan(yInput/xInput);
 	float currentAngle = GetAngle() + 180;
-
-	desiredAngle = ((int) desiredAngle % 360);
-
-
+	desiredAngle = ((int) desiredAngle % 360); // This calculates the angle we want the wheel at and gets the angle the wheel is currently at
+	
 	if(currentAngle > desiredAngle && currentAngle - desiredAngle < 180)
 	{
 		a_TurnMotor.Set(-0.5);
 	}
-
 	if(currentAngle > desiredAngle && currentAngle - desiredAngle > 180)
 	{
 		a_TurnMotor.Set(0.5);
 	}
-
-	if(currentAngle < desiredAngle && currentAngle - desiredAngle > 180 )
+	if(currentAngle < desiredAngle && currentAngle - desiredAngle > 180)
 	{
 		a_TurnMotor.Set(0.5);
 	}
-	if(currentAngle < desiredAngle && currentAngle - desiredAngle < 180 )
+	if(currentAngle < desiredAngle && currentAngle - desiredAngle < 180)
 	{
 		a_TurnMotor.Set(-0.5);
 	}
-
-
+	// This (theo) moves the turn motor the shortest distance to the desired angle from the current angle
 	a_DriveMotorOne.Set(r);
-	a_DriveMotorTwo.Set(r);
-
-
-
-
+	a_DriveMotorTwo.Set(r); // Moves the drive motors at the calculated magnitude
 }
 
 void SwerveModule::ZeroEncoders(void)
