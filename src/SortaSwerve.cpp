@@ -56,7 +56,14 @@ void SortaSwerve::TeleopPeriodic(void)
 	}
 	else
 	{
-		FL_SwerveModule.UpdateRaw(a_Joystick1.GetRawAxis(1), a_Joystick1.GetRawAxis(0));
+		if(a_Joystick1.GetRawButton(1))
+		{
+			FL_SwerveModule.UpdateJason(a_Joystick1.GetRawAxis(0), a_Joystick1.GetRawAxis(1), a_Joystick1.GetRawAxis(2));
+		}
+		else
+		{
+			FL_SwerveModule.UpdateRaw(a_Joystick1.GetRawAxis(1), a_Joystick1.GetRawAxis(0));
+		}
 	}
 
 	float angleCounts;

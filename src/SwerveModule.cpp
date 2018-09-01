@@ -46,6 +46,9 @@ void SwerveModule::UpdateJason(float xInput, float yInput, float zInput) // jank
 	{
 		r = 1.0; // For Tim, makes sure magnitude doesn't go over 1
 	}
+
+	r = r * 0.30; // For testing purposes, we will scale the input
+
 	float desiredAngle = atan(yInput/xInput);
 	float currentAngle = GetAngle() + 180;
 	desiredAngle = ((int) desiredAngle % 360); // This calculates the angle we want the wheel at and gets the angle the wheel is currently at
