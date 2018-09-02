@@ -13,7 +13,7 @@ a_TurnMotor(turnMotor)
 
 void SwerveModule::UpdateRaw(float driveSpeed, float rotationSpeed)
 {
-	float scalar = 1.0; // Full Speed is 1.0
+	float scalar = 0.25; // Full Speed is 1.0
 
 	a_DriveMotorOne.Set(scalar * driveSpeed); // Because this method is just for
 	a_DriveMotorTwo.Set(scalar * driveSpeed); // mechanically testing the modules,
@@ -32,7 +32,7 @@ void SwerveModule::UpdateAngle(float desiredAngle) // -180 < angle < 180
 	float currentAngle = GetAngle();
 
 	//  Positive Motor Speed = Unit-Circle (counter-clockwise)
-	float turnSpeed = 0.15;
+	float turnSpeed = 0.30;
 	if(currentAngle < desiredAngle && currentAngle - desiredAngle > -180)
 	{
 		a_TurnMotor.Set(-turnSpeed);
@@ -53,49 +53,6 @@ void SwerveModule::UpdateAngle(float desiredAngle) // -180 < angle < 180
 	{
 		a_TurnMotor.Set(turnSpeed);
 	}
-}
-
-void SwerveModule::UpdateJason(float xInput, float yInput, float zInput) // janky, untested, and more of a outline, but theo works
-{
-	double xIn;
-	double yIn;
-	// double zIn;
-
-	xIn = -1.0 * xInput;
-	yIn = yInput;
-
-	double desiredAngle = (atan2(xIn, yIn) * 180 / 3.1415);
-	double currentAngle = GetAngle();
-	SmartDashboard::PutNumber("Desired Angle: ", desiredAngle);
-
-	float r = sqrt(pow(xInput, 2) + pow(yInput, 2)); // Finds the magnitude of the Joystick or the "r" in a polar coordinate system
-	if(r > 1.0) 
-	{
-		r = 1.0; // For Tim, makes sure magnitude doesn't go over 1
-	}
-	r = r * 0.15; // For testing purposes, we will scale the input
-	
-	/*
-	 * if(currentAngle > desiredAngle && currentAngle - desiredAngle < 180)
-	{
-		a_TurnMotor.Set(0.3);
-	}
-	else if(currentAngle > desiredAngle && currentAngle - desiredAngle > 180)
-	{
-		a_TurnMotor.Set(-0.3);
-	}
-	else if(currentAngle < desiredAngle && currentAngle - desiredAngle > 180)
-	{
-		a_TurnMotor.Set(-0.3);
-	}
-	else if(currentAngle < desiredAngle && currentAngle - desiredAngle < 180)
-	{
-		a_TurnMotor.Set(0.3);
-	}
-	// This (theo) moves the turn motor the shortest distance to the desired angle from the current angle
-	 */
-	// a_DriveMotorOne.Set(r);
-	// a_DriveMotorTwo.Set(r); // Moves the drive motors at the calculated magnitude
 }
 
 void SwerveModule::ZeroEncoders(void)
@@ -120,9 +77,13 @@ float SwerveModule::GetAngle(void)
 
 	ret = (-1 * (int) ret % 360); // Converts counts to int casts it between 0 and 360 degrees
 
-	if(ret >= 180) // Restricting 0 to 360 to between +/- 180
+	if(ret > 180) // Restricting 0 to 360 to between +/- 180
 	{
 		ret -= 360;
+	}
+	if(ret < -180)
+	{
+		ret += 360;
 	}
 
 
