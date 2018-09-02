@@ -14,4 +14,6 @@
 #define WHEEL_CIRCUM_IN 9.4245
 #define WHEEL_CIRCUM_CM 23.9390
 
+#define PI 3.14159265358979
+
 #endif

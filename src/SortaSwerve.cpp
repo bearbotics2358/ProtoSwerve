@@ -4,8 +4,13 @@
 
 SortaSwerve::SortaSwerve(void):
 a_Joystick1(JOYSTICK_PORT_ONE),
-FL_SwerveModule(FL_DRIVE_ONE_ID, FL_DRIVE_TWO_ID, FL_TURN_ID)
+FL_SwerveModule(FL_DRIVE_ONE_ID, FL_DRIVE_TWO_ID, FL_TURN_ID),
+a_SwerveDrive()
 {
+	cruiseControl = false;
+	crabToggle = false;
+	driveSpeed = 0;
+	rotationSpeed = 0;
 	SmartDashboard::init();
 }
 
@@ -50,15 +55,26 @@ void SortaSwerve::TeleopPeriodic(void)
 		cruiseControl = false;
 	}
 
+	if(a_Joystick1.GetRawButton(8))
+	{
+		crabToggle = true;
+	}
+
+	if(a_Joystick1.GetRawButton(9))
+	{
+		crabToggle = false;
+	}
+
 	if(cruiseControl)
 	{
 		FL_SwerveModule.UpdateRaw(driveSpeed, rotationSpeed);
 	}
 	else
 	{
-		if(a_Joystick1.GetRawButton(1))
+		if(crabToggle)
 		{
-			FL_SwerveModule.UpdateJason(a_Joystick1.GetRawAxis(0), a_Joystick1.GetRawAxis(1), a_Joystick1.GetRawAxis(2));
+			a_SwerveDrive.CrabDrive(a_Joystick1.GetRawAxis(0), a_Joystick1.GetRawAxis(1), a_Joystick1.GetRawAxis(2));
+			// FL_SwerveModule.UpdateJason(a_Joystick1.GetRawAxis(0), a_Joystick1.GetRawAxis(1), a_Joystick1.GetRawAxis(2));
 		}
 		else
 		{
@@ -71,12 +87,12 @@ void SortaSwerve::TeleopPeriodic(void)
 	float calibratedAngle;
 	float distanceIn;
 	float distanceCm;
-	float currentOutput1;
+	// float currentOutput1;
 	// float currentOutput2;
-	float currentOutput3;
-	float voltageOutput1;
+	// float currentOutput3;
+	// float voltageOutput1;
 	// float voltageOutput2;
-	float voltageOutput3;
+	// float voltageOutput3;
 
 
 
@@ -85,12 +101,12 @@ void SortaSwerve::TeleopPeriodic(void)
 	calibratedAngle = FL_SwerveModule.GetAngle();
 	distanceIn = FL_SwerveModule.GetDistanceIn();
 	distanceCm = FL_SwerveModule.GetDistanceCm();
-	currentOutput1 = FL_SwerveModule.GetCurrentOP(FL_DRIVE_ONE_ID);
+	// currentOutput1 = FL_SwerveModule.GetCurrentOP(FL_DRIVE_ONE_ID);
 	// currentOutput2 = FL_SwerveModule.GetCurrentOP(FL_DRIVE_TWO_ID);
-	currentOutput3 = FL_SwerveModule.GetCurrentOP(FL_TURN_ID);
-	voltageOutput1 = FL_SwerveModule.GetVoltageOP(FL_DRIVE_ONE_ID);
+	// currentOutput3 = FL_SwerveModule.GetCurrentOP(FL_TURN_ID);
+	// voltageOutput1 = FL_SwerveModule.GetVoltageOP(FL_DRIVE_ONE_ID);
 	// voltageOutput2 = FL_SwerveModule.GetVoltageOP(FL_DRIVE_TWO_ID);
-	voltageOutput3 = FL_SwerveModule.GetVoltageOP(FL_TURN_ID);
+	// voltageOutput3 = FL_SwerveModule.GetVoltageOP(FL_TURN_ID);
 
 
 	SmartDashboard::PutNumber("Rotation Encoder: ", angleCounts);
@@ -98,12 +114,12 @@ void SortaSwerve::TeleopPeriodic(void)
 	SmartDashboard::PutNumber("Calculated Angle: ", calibratedAngle);
 	SmartDashboard::PutNumber("Distance (In): ", distanceIn);
 	SmartDashboard::PutNumber("Distance (Cm): ", distanceCm);
-	SmartDashboard::PutNumber("Drive Current 1: ", currentOutput1);
+	// SmartDashboard::PutNumber("Drive Current 1: ", currentOutput1);
 	// SmartDashboard::PutNumber("Drive Current 2: ", currentOutput2);
-	SmartDashboard::PutNumber("Turn Current: ", currentOutput3);
-	SmartDashboard::PutNumber("Drive Voltage 1: ", voltageOutput1);
+	// SmartDashboard::PutNumber("Turn Current: ", currentOutput3);
+	// SmartDashboard::PutNumber("Drive Voltage 1: ", voltageOutput1);
 	// SmartDashboard::PutNumber("Drive Voltage 2: ", voltageOutput2);
-	SmartDashboard::PutNumber("Turn Voltage: ", voltageOutput3);
+	// SmartDashboard::PutNumber("Turn Voltage: ", voltageOutput3);
 	SmartDashboard::PutBoolean("Cruise Control", cruiseControl);
 }
 

@@ -11,16 +11,6 @@ a_TurnMotor(turnMotor)
 
 }
 
-void SwerveModule::UpdateCartesian(float xInput, float yInput)
-{
-
-}
-
-void SwerveModule::UpdatePolar(float radius, float angle)
-{
-
-}
-
 void SwerveModule::UpdateRaw(float driveSpeed, float rotationSpeed)
 {
 	float scalar = 1.0; // Full Speed is 1.0
@@ -30,48 +20,82 @@ void SwerveModule::UpdateRaw(float driveSpeed, float rotationSpeed)
 	a_TurnMotor.Set(scalar * rotationSpeed); // I've applied a scalar for safety.
 }
 
-void SwerveModule::UpdateAngle(float angle) // -180 < angle < 180
+void SwerveModule::UpdateSpeed(float driveSpeed)
 {
-	// Will turn the swerve module to a specific angle.
-	// Note: Definition will be added later, method just added as pseudo code.
+	float scalar = 0.3; // Full Speed is 1.0
+	a_DriveMotorOne.Set(scalar * driveSpeed);
+	a_DriveMotorTwo.Set(scalar * driveSpeed);
+}
+
+void SwerveModule::UpdateAngle(float desiredAngle) // -180 < angle < 180
+{
+	float currentAngle = GetAngle();
+
+	//  Positive Motor Speed = Unit-Circle (counter-clockwise)
+	float turnSpeed = 0.15;
+	if(currentAngle < desiredAngle && currentAngle - desiredAngle > -180)
+	{
+		a_TurnMotor.Set(-turnSpeed);
+	}
+	else if(currentAngle < desiredAngle && currentAngle - desiredAngle < -180)
+	{
+		a_TurnMotor.Set(turnSpeed);
+	}
+	else if(currentAngle > desiredAngle && currentAngle - desiredAngle > 180)
+	{
+		a_TurnMotor.Set(-turnSpeed);
+	}
+	else if(currentAngle > desiredAngle && currentAngle - desiredAngle < 180)
+	{
+		a_TurnMotor.Set(turnSpeed);
+	}
+	else if(currentAngle - desiredAngle == 180 || currentAngle - desiredAngle == -180)
+	{
+		a_TurnMotor.Set(turnSpeed);
+	}
 }
 
 void SwerveModule::UpdateJason(float xInput, float yInput, float zInput) // janky, untested, and more of a outline, but theo works
 {
+	double xIn;
+	double yIn;
+	// double zIn;
 
-	// a_TurnMotor.Set(zInput); Would be used for turning robot or module in this case, but pointless for one wheel
+	xIn = -1.0 * xInput;
+	yIn = yInput;
+
+	double desiredAngle = (atan2(xIn, yIn) * 180 / 3.1415);
+	double currentAngle = GetAngle();
+	SmartDashboard::PutNumber("Desired Angle: ", desiredAngle);
 
 	float r = sqrt(pow(xInput, 2) + pow(yInput, 2)); // Finds the magnitude of the Joystick or the "r" in a polar coordinate system
 	if(r > 1.0) 
 	{
 		r = 1.0; // For Tim, makes sure magnitude doesn't go over 1
 	}
-
-	r = r * 0.30; // For testing purposes, we will scale the input
-
-	float desiredAngle = atan(yInput/xInput);
-	float currentAngle = GetAngle() + 180;
-	desiredAngle = ((int) desiredAngle % 360); // This calculates the angle we want the wheel at and gets the angle the wheel is currently at
+	r = r * 0.15; // For testing purposes, we will scale the input
 	
-	if(currentAngle > desiredAngle && currentAngle - desiredAngle < 180)
+	/*
+	 * if(currentAngle > desiredAngle && currentAngle - desiredAngle < 180)
 	{
-		a_TurnMotor.Set(-0.5);
+		a_TurnMotor.Set(0.3);
 	}
-	if(currentAngle > desiredAngle && currentAngle - desiredAngle > 180)
+	else if(currentAngle > desiredAngle && currentAngle - desiredAngle > 180)
 	{
-		a_TurnMotor.Set(0.5);
+		a_TurnMotor.Set(-0.3);
 	}
-	if(currentAngle < desiredAngle && currentAngle - desiredAngle > 180)
+	else if(currentAngle < desiredAngle && currentAngle - desiredAngle > 180)
 	{
-		a_TurnMotor.Set(0.5);
+		a_TurnMotor.Set(-0.3);
 	}
-	if(currentAngle < desiredAngle && currentAngle - desiredAngle < 180)
+	else if(currentAngle < desiredAngle && currentAngle - desiredAngle < 180)
 	{
-		a_TurnMotor.Set(-0.5);
+		a_TurnMotor.Set(0.3);
 	}
 	// This (theo) moves the turn motor the shortest distance to the desired angle from the current angle
-	a_DriveMotorOne.Set(r);
-	a_DriveMotorTwo.Set(r); // Moves the drive motors at the calculated magnitude
+	 */
+	// a_DriveMotorOne.Set(r);
+	// a_DriveMotorTwo.Set(r); // Moves the drive motors at the calculated magnitude
 }
 
 void SwerveModule::ZeroEncoders(void)
@@ -94,12 +118,13 @@ float SwerveModule::GetAngle(void)
 
 	float ret = ((count / COUNTS_PER_ROTATION) * 360); // Rotations * Degrees per rotation
 
-	ret = ((int) ret % 360); // Converts counts to int casts it between 0 and 360 degrees
+	ret = (-1 * (int) ret % 360); // Converts counts to int casts it between 0 and 360 degrees
 
 	if(ret >= 180) // Restricting 0 to 360 to between +/- 180
 	{
 		ret -= 360;
 	}
+
 
 	return ret;
 }
@@ -145,6 +170,10 @@ float SwerveModule::GetCurrentOP(int id)
 	else if(id == FL_TURN_ID) {
 		ret = a_TurnMotor.GetOutputCurrent();
 	}
+	else
+	{
+		ret = 0;
+	}
 
 	return ret;
 }
@@ -160,6 +189,10 @@ float SwerveModule::GetVoltageOP(int id)
 	}
 	else if(id == FL_TURN_ID) {
 		ret = a_TurnMotor.GetMotorOutputVoltage();
+	}
+	else
+	{
+		ret = 0;
 	}
 
 	return ret;

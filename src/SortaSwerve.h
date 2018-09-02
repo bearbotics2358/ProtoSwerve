@@ -1,5 +1,6 @@
 #include <WPILib.h>
 #include <SwerveModule.h>
+#include <SwerveDrive.h>
 
 #ifndef SRC_SORTASWERVE_H_
 #define SRC_SORTASWERVE_H_
@@ -28,12 +29,14 @@ public:
 private:
 	std::string robotState;
 	bool cruiseControl;
+	bool crabToggle;
 	float driveSpeed;
 	float rotationSpeed;
 
 	Joystick a_Joystick1;
 
 	SwerveModule FL_SwerveModule;
+	SwerveDrive a_SwerveDrive;
 };
 
 
