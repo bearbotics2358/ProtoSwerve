@@ -9,8 +9,6 @@ a_DriveMotorTwo(driveMotorTwo),
 a_TurnMotor(turnMotor)
 {
 	a_TurnMotor.ConfigSelectedFeedbackSensor(CTRE_MagEncoder_Absolute, 0, 0);
-	SetTurnPID(1, 0, 0);
-	a_TurnMotor.Set(ControlMode::Position, 1000);
 
 }
 
@@ -58,6 +56,12 @@ void SwerveModule::UpdateAngle(float desiredAngle) // -180 < angle < 180
 	}
 }
 
+void SwerveModule::UpdateAnglePID(float angle)
+{
+	float counts = angle * (4096 / 360.0);
+	a_TurnMotor.Set(ControlMode::Position, counts);
+}
+
 void SwerveModule::ZeroEncoders(void)
 {
 	a_DriveMotorOne.SetSelectedSensorPosition(0, 0, 0);
@@ -92,6 +96,8 @@ float SwerveModule::GetAngle(void)
 
 	return ret;
 }
+
+
 
 float SwerveModule::GetDistanceRaw(void)
 {
