@@ -157,6 +157,11 @@ void SortaSwerve::TestInit(void)
 void SortaSwerve::TestPeriodic(void)
 {
 	robotState = "Test";
+
+
+	// a_SwerveDrive.CrabDrive(a_Joystick1.GetRawAxis(0), a_Joystick1.GetRawAxis(1), a_Joystick1.GetRawAxis(2));
+	SmartDashboard::PutNumber("Test Slider", 0.5);
+
 }
 
 SortaSwerve::~SortaSwerve(void)

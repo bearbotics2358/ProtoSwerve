@@ -23,11 +23,14 @@ public:
 	float GetCurrentOP(int id);
 	float GetVoltageOP(int id);
 
+	void SetTurnPID(float p, float i, float d);
+
 	~SwerveModule(void);
 private:
 	WPI_TalonSRX a_DriveMotorOne;
 	WPI_TalonSRX a_DriveMotorTwo;
 	WPI_TalonSRX a_TurnMotor;
+
 };
 
 

@@ -8,12 +8,15 @@ a_DriveMotorOne(driveMotorOne),
 a_DriveMotorTwo(driveMotorTwo),
 a_TurnMotor(turnMotor)
 {
+	a_TurnMotor.ConfigSelectedFeedbackSensor(CTRE_MagEncoder_Absolute, 0, 0);
+	SetTurnPID(1, 0, 0);
+	a_TurnMotor.Set(ControlMode::Position, 1000);
 
 }
 
 void SwerveModule::UpdateRaw(float driveSpeed, float rotationSpeed)
 {
-	float scalar = 0.25; // Full Speed is 1.0
+	float scalar = 1.0; // Full Speed is 1.0
 
 	a_DriveMotorOne.Set(scalar * driveSpeed); // Because this method is just for
 	a_DriveMotorTwo.Set(scalar * driveSpeed); // mechanically testing the modules,
@@ -157,6 +160,13 @@ float SwerveModule::GetVoltageOP(int id)
 	}
 
 	return ret;
+}
+
+void SwerveModule::SetTurnPID(float p, float i, float d)
+{
+	a_TurnMotor.Config_kP(0, p, 0);
+	a_TurnMotor.Config_kI(0, i, 0);
+	a_TurnMotor.Config_kD(0, d, 0);
 }
 
 SwerveModule::~SwerveModule(void)
