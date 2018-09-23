@@ -14,6 +14,7 @@ public:
 	~SwerveDrive(void);
 
 	void CrabDrive(double xIn, double yIn, double zIn);
+	void CrabDrivePID(double xIn, double yIn, double zIn);
 private:
 	SwerveModule FL_SwerveModule;
 };

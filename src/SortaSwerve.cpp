@@ -158,11 +158,23 @@ void SortaSwerve::TestPeriodic(void)
 {
 	robotState = "Test";
 
-	// Added 180 so the angle is in the realm of 0 to 360
-	double theta = (atan2(a_Joystick1.GetRawAxis(0), a_Joystick1.GetRawAxis(1))) * 180 / PI + 180; // These two lines convert cartesian
-	FL_SwerveModule.UpdateAnglePID(theta);
-	// a_SwerveDrive.CrabDrive(a_Joystick1.GetRawAxis(0), a_Joystick1.GetRawAxis(1), a_Joystick1.GetRawAxis(2));
+	a_SwerveDrive.CrabDrivePID(a_Joystick1.GetRawAxis(0), a_Joystick1.GetRawAxis(1), a_Joystick1.GetRawAxis(2));
+	/*if(a_Joystick1.GetRawButton(6))
+	{
+		FL_SwerveModule.UpdateAnglePID(90);
+	}
+	else if(a_Joystick1.GetRawButton(7))
+	{
+		FL_SwerveModule.UpdateAnglePID(0);
+	}
+	else
+	{
+		FL_SwerveModule.UpdateAnglePID(270);
+	}
+	*/
 	SmartDashboard::PutNumber("Test Slider", 0.5);
+	double calibratedAngle = FL_SwerveModule.GetAngle() + 180;
+	SmartDashboard::PutNumber("Calculated Angle: ", calibratedAngle);
 
 }
 
