@@ -6,11 +6,14 @@
 #include <Prefs.h>
 
 SwerveDrive::SwerveDrive(void):
+	a_Gyro(I2C::kMXP),
 	FL_SwerveModule(FL_DRIVE_ONE_ID, FL_DRIVE_TWO_ID, FL_TURN_ID),
-	FR_SwerveModule(FR_DRIVE_ONE_ID, FR_DRIVE_TWO_ID, FR_TURN_ID)
-{
-
-}
+	FR_SwerveModule(FR_DRIVE_ONE_ID, FR_DRIVE_TWO_ID, FR_TURN_ID),
+	BL_SwerveModule(BL_DRIVE_ONE_ID, BL_DRIVE_TWO_ID, BL_TURN_ID),
+	BR_SwerveModule(BR_DRIVE_ONE_ID, BR_DRIVE_TWO_ID, BR_TURN_ID)
+	{
+		a_Gyro.Init();
+	}
 
 SwerveDrive::~SwerveDrive(void)
 {
@@ -72,9 +75,15 @@ void SwerveDrive::CrabDrivePID(double xIn, double yIn, double zIn)
 	SmartDashboard::PutNumber("Theta: ", theta);
 	SmartDashboard::PutNumber("Radius: ", radius);
 
-	FL_SwerveModule.UpdateSpeed(-radius);
+	FL_SwerveModule.UpdateSpeed(radius);
 	FL_SwerveModule.UpdateAnglePID(theta);
 
-	FR_SwerveModule.UpdateSpeed(-radius);
+	FR_SwerveModule.UpdateSpeed(radius);
 	FR_SwerveModule.UpdateAnglePID(theta);
+
+	// BL_SwerveModule.UpdateSpeed(radius);
+	// BL_SwerveModule.UpdateAnglePID(theta);
+
+	// BR_SwerveModule.UpdateSpeed(radius);
+	// BR_SwerveModule.UpdateAnglePID(theta);
 }

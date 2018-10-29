@@ -33,7 +33,6 @@ private:
 	float driveSpeed;
 	float rotationSpeed;
 
-
 	Joystick a_Joystick1;
 	SwerveModule FL_SwerveModule;
 	SwerveModule FR_SwerveModule;
