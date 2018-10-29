@@ -17,6 +17,7 @@ public:
 	void CrabDrivePID(double xIn, double yIn, double zIn);
 private:
 	SwerveModule FL_SwerveModule;
+	SwerveModule FR_SwerveModule;
 };
 
 #endif /* SRC_SWERVEDRIVE_H_ */

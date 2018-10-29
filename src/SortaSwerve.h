@@ -36,6 +36,7 @@ private:
 
 	Joystick a_Joystick1;
 	SwerveModule FL_SwerveModule;
+	SwerveModule FR_SwerveModule;
 	SwerveDrive a_SwerveDrive;
 
 

@@ -8,7 +8,7 @@ a_DriveMotorOne(driveMotorOne),
 a_DriveMotorTwo(driveMotorTwo),
 a_TurnMotor(turnMotor)
 {
-	a_TurnMotor.ConfigSelectedFeedbackSensor(CTRE_MagEncoder_Absolute, 0, 0);
+	a_TurnMotor.ConfigSelectedFeedbackSensor(CTRE_MagEncoder_Relative, 0, 0);
 
 }
 
@@ -23,7 +23,7 @@ void SwerveModule::UpdateRaw(float driveSpeed, float rotationSpeed)
 
 void SwerveModule::UpdateSpeed(float driveSpeed)
 {
-	float scalar = 0.3; // Full Speed is 1.0
+	float scalar = 1.0; // Full Speed is 1.0
 	a_DriveMotorOne.Set(scalar * driveSpeed);
 	a_DriveMotorTwo.Set(scalar * driveSpeed);
 }

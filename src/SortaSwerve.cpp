@@ -5,6 +5,7 @@
 SortaSwerve::SortaSwerve(void):
 a_Joystick1(JOYSTICK_PORT_ONE),
 FL_SwerveModule(FL_DRIVE_ONE_ID, FL_DRIVE_TWO_ID, FL_TURN_ID),
+FR_SwerveModule(FR_DRIVE_ONE_ID, FR_DRIVE_TWO_ID, FR_TURN_ID),
 a_SwerveDrive()
 {
 	cruiseControl = false;
@@ -16,27 +17,27 @@ a_SwerveDrive()
 
 void SortaSwerve::RobotInit(void)
 {
-	// FL_SwerveModule.ZeroEncoders();
+	FL_SwerveModule.ZeroEncoders();
 }
 
 void SortaSwerve::RobotPeriodic(void)
 {
-	SmartDashboard::PutString("Robot State: ", robotState);
+
 }
 
 void SortaSwerve::DisabledInit(void)
 {
-
+	robotState = "Disabled";
 }
 
 void SortaSwerve::DisabledPeriodic(void)
 {
-	robotState = "Disabled";
+
 }
 
 void SortaSwerve::TeleopInit(void)
 {
-	FL_SwerveModule.ZeroEncoders();
+
 }
 
 void SortaSwerve::TeleopPeriodic(void)
@@ -141,22 +142,22 @@ void SortaSwerve::TeleopPeriodic(void)
 
 void SortaSwerve::AutonomousInit(void)
 {
-
+	robotState = "Autonomous";
 }
 
 void SortaSwerve::AutonomousPeriodic(void)
 {
-	robotState = "Autonomous";
+
 }
 
 void SortaSwerve::TestInit(void)
 {
+	robotState = "Test";
 
 }
 
 void SortaSwerve::TestPeriodic(void)
 {
-	robotState = "Test";
 
 	a_SwerveDrive.CrabDrivePID(a_Joystick1.GetRawAxis(0), a_Joystick1.GetRawAxis(1), a_Joystick1.GetRawAxis(2));
 	/*if(a_Joystick1.GetRawButton(6))
@@ -172,8 +173,7 @@ void SortaSwerve::TestPeriodic(void)
 		FL_SwerveModule.UpdateAnglePID(270);
 	}
 	*/
-	SmartDashboard::PutNumber("Test Slider", 0.5);
-	double calibratedAngle = FL_SwerveModule.GetAngle() + 180;
+	double calibratedAngle = FR_SwerveModule.GetAngle() + 180;
 	SmartDashboard::PutNumber("Calculated Angle: ", calibratedAngle);
 
 }

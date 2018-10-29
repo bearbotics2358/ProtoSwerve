@@ -6,7 +6,8 @@
 #include <Prefs.h>
 
 SwerveDrive::SwerveDrive(void):
-	FL_SwerveModule(FL_DRIVE_ONE_ID, FL_DRIVE_TWO_ID, FL_TURN_ID)
+	FL_SwerveModule(FL_DRIVE_ONE_ID, FL_DRIVE_TWO_ID, FL_TURN_ID),
+	FR_SwerveModule(FR_DRIVE_ONE_ID, FR_DRIVE_TWO_ID, FR_TURN_ID)
 {
 
 }
@@ -20,7 +21,7 @@ void SwerveDrive::CrabDrive(double xIn, double yIn, double zIn)
 {
 	double xInput = xIn;
 	double yInput = -1.0 * yIn;
-	// double zInput;
+	// double zInput;`
 
 
 	// Atan2() returns the angle in radians so we convert it to degrees.
@@ -66,10 +67,14 @@ void SwerveDrive::CrabDrivePID(double xIn, double yIn, double zIn)
 		{
 			radius = 1.0; // Makes sure magnitude doesn't go over 1
 		}
-	radius = radius * 0.15; // For testing purposes, we will scale the input
+	radius = radius * -1.00; // For testing purposes, we will scale the input
 
 	SmartDashboard::PutNumber("Theta: ", theta);
 	SmartDashboard::PutNumber("Radius: ", radius);
-	// FL_SwerveModule.UpdateSpeed(radius);
+
+	FL_SwerveModule.UpdateSpeed(-radius);
 	FL_SwerveModule.UpdateAnglePID(theta);
+
+	FR_SwerveModule.UpdateSpeed(-radius);
+	FR_SwerveModule.UpdateAnglePID(theta);
 }
