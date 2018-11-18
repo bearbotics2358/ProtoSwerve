@@ -1,14 +1,15 @@
 #include <WPILib.h>
 #include <SwerveModule.h>
 #include <SwerveDrive.h>
+#include <JrimmyGyro.h>
 
-#ifndef SRC_SORTASWERVE_H_
-#define SRC_SORTASWERVE_H_
+#ifndef SRC_ROBOT_H_
+#define SRC_ROBOT_H_
 
-class SortaSwerve : public IterativeRobot
+class Robot : public IterativeRobot
 {
 public:
-	SortaSwerve(void);
+	Robot(void);
 
 	void RobotInit(void);
 	void RobotPeriodic(void);
@@ -25,7 +26,7 @@ public:
 	void TestInit(void);
 	void TestPeriodic(void);
 
-	~SortaSwerve(void);
+	~Robot(void);
 private:
 	std::string robotState;
 	bool cruiseControl;
@@ -33,6 +34,7 @@ private:
 	float driveSpeed;
 	float rotationSpeed;
 
+	JrimmyGyro a_Gyro;
 	Joystick a_Joystick1;
 	SwerveModule FL_SwerveModule;
 	SwerveModule FR_SwerveModule;
@@ -43,4 +45,4 @@ private:
 
 
 
-#endif /* SRC_SORTASWERVE_H_ */
+#endif /* SRC_Robot_H_ */

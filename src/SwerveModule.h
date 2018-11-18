@@ -12,7 +12,7 @@ public:
 	void UpdateRaw(float driveSpeed, float rotationSpeed); // Method for mechanically testing swerve modules, will literally set the drive talons to a specific speed.
 	void UpdateAngle(float desiredAngle); // Angle in degrees
 	void UpdateAnglePID(float angle);
-
+	void UpdateTraj(float deltaDist, float angle);
 
 	void ZeroEncoders(void);
 	float GetAngleRaw(void);

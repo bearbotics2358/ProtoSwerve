@@ -62,6 +62,11 @@ void SwerveModule::UpdateAnglePID(float angle)
 	a_TurnMotor.Set(ControlMode::Position, counts);
 }
 
+void SwerveModule::UpdateTraj(float deltaDist, float angle)
+{
+
+}
+
 void SwerveModule::ZeroEncoders(void)
 {
 	a_DriveMotorOne.SetSelectedSensorPosition(0, 0, 0);

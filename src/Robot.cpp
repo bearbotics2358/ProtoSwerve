@@ -1,8 +1,10 @@
 #include <WPILib.h>
 #include <Prefs.h>
-#include <SortaSwerve.h>
+#include <Robot.h>
 
-SortaSwerve::SortaSwerve(void):
+
+Robot::Robot(void):
+a_Gyro(I2C::kMXP),
 a_Joystick1(JOYSTICK_PORT_ONE),
 FL_SwerveModule(FL_DRIVE_ONE_ID, FL_DRIVE_TWO_ID, FL_TURN_ID),
 FR_SwerveModule(FR_DRIVE_ONE_ID, FR_DRIVE_TWO_ID, FR_TURN_ID),
@@ -15,32 +17,32 @@ a_SwerveDrive()
 	SmartDashboard::init();
 }
 
-void SortaSwerve::RobotInit(void)
+void Robot::RobotInit(void)
 {
 	FL_SwerveModule.ZeroEncoders();
 }
 
-void SortaSwerve::RobotPeriodic(void)
+void Robot::RobotPeriodic(void)
 {
 
 }
 
-void SortaSwerve::DisabledInit(void)
+void Robot::DisabledInit(void)
 {
 	robotState = "Disabled";
 }
 
-void SortaSwerve::DisabledPeriodic(void)
+void Robot::DisabledPeriodic(void)
 {
 
 }
 
-void SortaSwerve::TeleopInit(void)
+void Robot::TeleopInit(void)
 {
 
 }
 
-void SortaSwerve::TeleopPeriodic(void)
+void Robot::TeleopPeriodic(void)
 {
 	robotState = "Teleoperated";
 
@@ -140,23 +142,23 @@ void SortaSwerve::TeleopPeriodic(void)
 	SmartDashboard::PutBoolean("Cruise Control", cruiseControl);
 }
 
-void SortaSwerve::AutonomousInit(void)
+void Robot::AutonomousInit(void)
 {
 	robotState = "Autonomous";
 }
 
-void SortaSwerve::AutonomousPeriodic(void)
+void Robot::AutonomousPeriodic(void)
 {
 
 }
 
-void SortaSwerve::TestInit(void)
+void Robot::TestInit(void)
 {
 	robotState = "Test";
 
 }
 
-void SortaSwerve::TestPeriodic(void)
+void Robot::TestPeriodic(void)
 {
 
 	a_SwerveDrive.CrabDrivePID(a_Joystick1.GetRawAxis(0), a_Joystick1.GetRawAxis(1), a_Joystick1.GetRawAxis(2));
@@ -178,9 +180,9 @@ void SortaSwerve::TestPeriodic(void)
 
 }
 
-SortaSwerve::~SortaSwerve(void)
+Robot::~Robot(void)
 {
 
 }
 
-START_ROBOT_CLASS(SortaSwerve);
+START_ROBOT_CLASS(Robot);
